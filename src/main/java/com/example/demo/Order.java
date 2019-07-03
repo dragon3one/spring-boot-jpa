@@ -27,15 +27,15 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long order_id;
 	
-	@ManyToOne
+	
 	private Long order_customer;
 	
 	private Long order_product;
 	
-//	@Builder
-//    public void order(Long order_customer,Long order_product) {
-//    	this.order_customer = order_customer;
-//    	this.order_product = order_product;
-//    }
+	@Builder
+    public void order(Long order_customer,Long order_product) {
+    	this.order_customer = order_customer;
+    	this.order_product = order_product;
+    }
 	
 }

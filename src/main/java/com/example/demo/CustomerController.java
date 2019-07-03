@@ -22,8 +22,8 @@ public class CustomerController {
     public @ResponseBody List<Customer> createCustomer(@RequestBody Map<String,String> param){
         String name = param.get("name");
         String phone = param.get("phone");
-        Customer customer = Customer.builder().name(name).phone(phone).build();
-        customerRepository.save(customer);
+//        Customer customer = Customer.builder().name(name).phone(phone).build();
+//        customerRepository.save(customer);
 
         return customerRepository.findAll();
     }

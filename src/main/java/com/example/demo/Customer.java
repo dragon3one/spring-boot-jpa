@@ -1,20 +1,14 @@
 package com.example.demo;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.Collection;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
@@ -32,9 +26,8 @@ public class Customer {
     @Column(length = 20, nullable = false, unique = true)
     private String phone;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="order_id", referencedColumnName = "id")
-    private Order_product order_product;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Collection<Order_product> order_products;
     
     @Builder
     public Customer(String name, String phone) {

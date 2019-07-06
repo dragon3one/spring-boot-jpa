@@ -22,14 +22,14 @@ public class CustomerController {
     public @ResponseBody List<Customer> createCustomer(@RequestBody Map<String,String> param){
         String name = param.get("name");
         String phone = param.get("phone");
-//        Customer customer = Customer.builder().name(name).phone(phone).build();
-//        customerRepository.save(customer);
+        Customer customer = Customer.builder().name(name).phone(phone).build();
+        customerRepository.save(customer);
 
         return customerRepository.findAll();
     }
     
-//    @PostMapping("/")
-//    public @ResponseBody List<Customer> findAll(@RequestBody Map<String,String> param){
-//        return customerRepository.findAll();
-//    }
+    @PostMapping("/findAll")
+    public @ResponseBody List<Customer> findAll(@RequestBody Map<String,String> param){
+        return customerRepository.findAll();
+    }
 }

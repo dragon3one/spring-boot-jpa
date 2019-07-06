@@ -23,13 +23,13 @@ public class CustomerTests {
 
     @Test
     public void testCustomerRepository(){
-//        Customer customer = Customer.builder().name("홍길동").phone("010-2222-2222").build();
-//        customerRepository.save(customer);
-//        List<Customer> customerList = customerRepository.findAll();
+        Customer customer = Customer.builder().name("크리스").phone("010-2222-2222").build();
+        customerRepository.save(customer);
+        List<Customer> customerList = customerRepository.findAll();
 
-//        Customer chris = customerList.get(0);
-//        assertThat(chris.getName(), is("김용원"));
-//        assertThat(chris.getPhone(), is("010-1111-1111"));
+        Customer chris = customerList.get(0);
+        assertThat(chris.getName(), is("크리스"));
+        assertThat(chris.getPhone(), is("010-2222-2222"));
     }
 
     @After

@@ -17,18 +17,15 @@ import java.util.Collection;
 public class Order_list {
 	
 	@Id
+	@Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(length = 100, nullable = false)
+	@Column(name = "delivery_location",length = 100, nullable = false)
 	private String delivery_location;
 
-//	@OneToMany
-//    @JoinColumn(table = "customer")
-//	@Column(nullable = false)
-//	private Long customer_id;
+    @ManyToOne
+	@JoinColumn(name = "customer_id")
+    private Customer customer;
 
-    @OneToMany
-    private Collection<Customer> customers;
-
-}	
+}

@@ -1,37 +1,45 @@
 package com.example.demo;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Table(name = "order_price")
+@ToString
+@Entity
 @Getter
 public class Order_price {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(table = "order_list")
-//    @Column(nullable = false)
-//    private Long order_id;
+    @ManyToOne
+    @JoinColumn(name = "order_list_id")
+    private Order_list order_list;
 
     @ManyToOne
-    private Collection<Order_list> order_lists;
+    @JoinColumn(name = "product_list_id")
+    private Product_list product_list;
 
-//    @ManyToOne
-//    @JoinColumn(table = "product_list")
-//    @Column(nullable = false)
-//    private Long product_id;
-
-    @ManyToOne
-    private Collection<Product_list> product_lists;
-
-    @Column(nullable = false)
+    @Column(name = "price", nullable = false)
     private Long price;
 
-    @Column(nullable = false)
+    @Column(name = "discount_price", nullable = false)
     private Long discount_price;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

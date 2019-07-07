@@ -5,19 +5,19 @@ import lombok.*;
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
-@Getter
-@Entity
 @Table(name = "customer")
+@ToString
+@Entity
+@Getter
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 20, nullable = false)
+    @Column(name = "name",length = 20, nullable = false)
     private String name;
 
-    @Column(length = 20, nullable = false, unique = true)
+    @Column(name = "phone",length = 20, nullable = false, unique = true)
     private String phone;
 
     @Builder

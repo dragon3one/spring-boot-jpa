@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.vo;
 
 import lombok.*;
 
@@ -9,6 +9,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Getter
+@NamedQuery(name = "Customer.NamedQuery", query = "select c from Customer c where c.phone= ?1") // *문자 사용 불가 from vo Class명으로
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

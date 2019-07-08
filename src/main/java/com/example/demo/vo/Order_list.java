@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.vo;
 
 import javax.persistence.*;
 
@@ -6,8 +6,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.util.Collection;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString

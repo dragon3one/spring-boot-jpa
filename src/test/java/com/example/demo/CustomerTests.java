@@ -5,6 +5,8 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import com.example.demo.service.CustomerRepository;
+import com.example.demo.vo.Customer;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,14 +29,14 @@ public class CustomerTests {
         customerRepository.save(customer);
         List<Customer> customerList = customerRepository.findAll();
 
-        Customer chris = customerList.get(0);
+        /*Customer chris = customerList.get(0);
         assertThat(chris.getName(), is("크리스"));
-        assertThat(chris.getPhone(), is("010-2222-2222"));
+        assertThat(chris.getPhone(), is("010-2222-2222"));*/
     }
 
-    @After
-    public void deleteAll() {
-        customerRepository.deleteAll();
-    }
+//    @After
+//    public void deleteAll() {
+//        customerRepository.deleteAll();
+//    }
 
 }

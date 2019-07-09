@@ -5,11 +5,10 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@Table(name = "order_price")
 @ToString
 @Entity
 @Getter
-public class Order_price {
+public class OrderPrice{
 
     @Id
     @Column(name = "id")
@@ -17,18 +16,18 @@ public class Order_price {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "order_list_id")
-    private Order_list order_list;
+    @JoinColumn(name = "orderList_id")
+    private OrderList orderList;
 
     @ManyToOne
-    @JoinColumn(name = "product_list_id")
-    private Product_list product_list;
+    @JoinColumn(name = "productList_id")
+    private ProductList productList;
 
     @Column(name = "price", nullable = false)
     private Long price;
 
-    @Column(name = "discount_price", nullable = false)
-    private Long discount_price;
+    @Column(name = "discountPrice", nullable = false)
+    private Long discountPrice;
 }
 
 

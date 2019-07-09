@@ -22,6 +22,9 @@
             case "query":
                 location = "/customer/query";
                 break;
+            case "findById":
+                location = "/customer/findById";
+                break;
         }
         document.getElementsByTagName("form")[0].action = location;
         document.getElementsByTagName("form")[0].submit();
@@ -38,11 +41,14 @@
         name <input type="text" name="name" value="">
         <br>
         phone <input type="text" name="phone" value="">
+        <br>
+        ID <input type="text" name="id" value="">
 
     </form>
 
     <input type="button" onclick="search('like')" value="Like 검색 keyword">
     <input type="button" onclick="search('named')" value="Named 검색 keyword">
     <input type="button" onclick="search('query')" value="query 검색 name phone">
+    <input type="button" onclick="search('findById')" value="findById">
 </body>
 </html>

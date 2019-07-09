@@ -8,11 +8,10 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "product_list")
 @ToString
 @Entity
 @Getter
-public class Product_list {
+public class ProductList {
 	
 	@Id
     @Column(name = "id")

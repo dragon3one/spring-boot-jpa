@@ -11,16 +11,15 @@ import lombok.ToString;
 @ToString
 @Getter
 @Entity
-@Table(name = "order_list")
-public class Order_list {
+public class OrderList{
 	
 	@Id
 	@Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "delivery_location",length = 100, nullable = false)
-	private String delivery_location;
+	@Column(name = "deliveryLocation",length = 100, nullable = false)
+	private String deliveryLocation;
 
     @ManyToOne
 	@JoinColumn(name = "customer_id")

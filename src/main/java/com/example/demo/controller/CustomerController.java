@@ -2,6 +2,7 @@ package com.example.demo.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.example.demo.vo.Customer;
@@ -11,6 +12,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
 import sun.security.ssl.Debug;
+
+/*
+* @RestController view Resolver를 거치지 않고 리턴한다.
+* @EnableAutoConfiguration 자동설정 exclude와 excludeName속성을 통해 자동설정에서 제외 할수 있다.
+* */
 
 @RestController
 @EnableAutoConfiguration
@@ -39,8 +45,14 @@ public class CustomerController {
     }
     
     @PostMapping("/findAll")
-    public @ResponseBody List<Customer> findAll(@RequestBody Map<String,String> param){
+    public @ResponseBody List<Customer> findAll(){
         return customerRepository.findAll();
+    }
+
+    @PostMapping("/findById")
+    public @ResponseBody Optional<Customer> findById(@RequestParam Map<String,String> param){
+        Optional<Customer> result = customerRepository.findById(Long.parseLong(param.get("id")));
+        return result;
     }
 
     @PostMapping("/findNameLike")

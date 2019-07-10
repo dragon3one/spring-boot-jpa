@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="fileH2DB" uuid="102767a4-bc3b-420d-93e4-bf2bd59549a0">
+    <data-source source="LOCAL" name="H2DB@localhost" uuid="7c83456e-f736-4d57-bc18-bb898ecf0e9b">
       <driver-ref>h2.unified</driver-ref>
       <synchronize>true</synchronize>
-      <remarks>fileH2DB</remarks>
       <jdbc-driver>org.h2.Driver</jdbc-driver>
-      <jdbc-url>jdbc:h2:file:./H2DB</jdbc-url>
+      <jdbc-url>jdbc:h2:tcp://localhost:8080/H2DB</jdbc-url>
     </data-source>
   </component>
 </project>

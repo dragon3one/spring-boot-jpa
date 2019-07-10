@@ -1,9 +1,6 @@
 package com.example.demo.vo;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,13 +12,18 @@ public class ProductList {
 	
 	@Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "name",length = 100, nullable = false)
 	private String name;
 
 	@Column(nullable = false)
-	private Long price;
-	
+	private int price;
+
+	@Builder
+	public ProductList(String name,int price){
+		this.name = name;
+		this.price = price;
+	}
 }	

@@ -13,6 +13,8 @@ Main Page!
 ${name}
     <a href="/page/customerInsert">손님입력</a>
     <br>
-    <a href="/page/customerFind">이름 Like 검색</a>
+    <a href="/page/customerFind">손님 검색</a>
+    <br>
+    <a href="/page/productFind">상품 검색</a>
 </body>
 </html>

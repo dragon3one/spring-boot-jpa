@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>검색</title>
+    <title>상품 검색</title>
 </head>
 
 <script>
@@ -14,19 +14,16 @@
 
         switch (id) {
             case "findAll":
-                location = "/customer/findAll";
+                location = "/product/findAll";
                 break;
-            case "like":
-                location = "/customer/findNameLike";
+            case "insert":
+                location = "/product/insert";
                 break;
-            case "named":
-                location = "/customer/Named";
+            case "findAllSort":
+                location = "/product/findAllSort";
                 break;
-            case "query":
-                location = "/customer/query";
-                break;
-            case "findById":
-                location = "/customer/findById";
+            case "findAllPage":
+                location = "/product/findAllPage";
                 break;
         }
         document.getElementsByTagName("form")[0].action = location;
@@ -35,24 +32,24 @@
 
 </script>
 <body>
-    검색 페이지
+    상품 검색 페이지
     <br>
-    <form action="/customer/findNameLike" method="post">
+    <form action="" method="post">
 
         KEYWORD <input type="text" name="keyword" value="">
         <br>
         name <input type="text" name="name" value="">
         <br>
-        phone <input type="text" name="phone" value="">
+        PRICE <input type="text" name="price" value="">
         <br>
         ID <input type="text" name="id" value="">
-
-    </form>
-
+        <br>
+        page <input type="text" name="page" value="0">
+        </form>
+    <input type="button" onclick="search('insert')" value="insert">
     <input type="button" onclick="search('findAll')" value="findAll">
-    <input type="button" onclick="search('like')" value="Like 검색 keyword">
-    <input type="button" onclick="search('named')" value="Named 검색 keyword">
-    <input type="button" onclick="search('query')" value="query 검색 name phone">
-    <input type="button" onclick="search('findById')" value="findById">
+    <input type="button" onclick="search('findAllPage')" value="findAllPage">
+    <input type="button" onclick="search('findAllSort')" value="findAllSort">
+
 </body>
 </html>

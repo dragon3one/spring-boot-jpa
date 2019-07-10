@@ -33,4 +33,9 @@ public class PageController {
     public String customerFind(){
         return "customerFind";
     }
+
+    @RequestMapping("productFind")
+    public String productFind(){
+        return "productFind";
+    }
 }

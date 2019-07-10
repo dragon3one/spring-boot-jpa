@@ -1,17 +1,15 @@
 package com.example.demo.controller;
+
+import com.example.demo.service.CustomerRepository;
+import com.example.demo.vo.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
-
-import com.example.demo.vo.Customer;
-import com.example.demo.service.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.web.bind.annotation.*;
-import sun.security.ssl.Debug;
 
 /*
 * @RestController view Resolver를 거치지 않고 리턴한다.
@@ -34,7 +32,7 @@ public class CustomerController {
     */
 
     @PostMapping(value = "/insert")
-    public @ResponseBody List<Customer> createCustomer(@RequestParam HashMap<String,String> param){
+    public List<Customer> createCustomer(@RequestParam HashMap<String,String> param){
         System.out.println(param);
         String name = param.get("name");
         String phone = param.get("phone");
@@ -45,29 +43,29 @@ public class CustomerController {
     }
     
     @PostMapping("/findAll")
-    public @ResponseBody List<Customer> findAll(){
+    public List<Customer> findAll(){
         return customerRepository.findAll();
     }
 
     @PostMapping("/findById")
-    public @ResponseBody Optional<Customer> findById(@RequestParam Map<String,String> param){
+    public Optional<Customer> findById(@RequestParam Map<String,String> param){
         Optional<Customer> result = customerRepository.findById(Long.parseLong(param.get("id")));
         return result;
     }
 
     @PostMapping("/findNameLike")
-    public @ResponseBody List<Customer> findNameLike(@RequestParam Map<String,String> param){
+    public List<Customer> findNameLike(@RequestParam Map<String,String> param){
         String keyword = param.get("keyword");
         return customerRepository.findByNameLike('%'+keyword+'%');
     }
 
     @PostMapping("/Named")
-    public @ResponseBody List<Customer> Named(@RequestParam Map<String,String> param){
+    public List<Customer> Named(@RequestParam Map<String,String> param){
         return customerRepository.NamedQuery(param.get("keyword"));
     }
 
     @PostMapping("/query")
-    public @ResponseBody List<Customer> query(@RequestParam Map<String,String> param){
+    public List<Customer> query(@RequestParam Map<String,String> param){
         return customerRepository.query(param.get("name"), param.get("phone"));
     }
 }

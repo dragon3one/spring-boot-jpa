@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.ProductListRepository;
+import com.example.demo.vo.OrderPrice;
 import com.example.demo.vo.ProductList;
-import javassist.runtime.Desc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -11,6 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,9 @@ public class ProductController {
 
     @Autowired
     ProductListRepository productListRepository;
+
+    @Autowired
+    protected EntityManager entityManager;
 
     @PostMapping(value = "/findAll")
     public List<ProductList> findAll(){
@@ -60,5 +66,37 @@ public class ProductController {
 
         productListRepository.save(productList);
         return productListRepository.findAll();
+    }
+
+    //JPA Dynamic Qurey Criteria 쿼리
+    @PostMapping(value = "/criteria")
+    public List<ProductList> criteria(){
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProductList> criteriaQuery = builder.createQuery(ProductList.class);
+        Root<ProductList> root = criteriaQuery.from(ProductList.class);
+
+        //where 옵션들
+        List<Predicate> predicates = new ArrayList<>();
+
+        //where LIKE문 추가
+        predicates.add(builder.like(root.get("name"),"%냉%"));
+
+        //where 절에 join추가
+        // JOIN실패...
+//        Join<ProductList,OrderPrice> joinin = root.join("id");
+//        predicates.add(builder.equal(joinin.get("discountPrice"),"0"));
+
+        //옵션항목을 where절에 추가
+        criteriaQuery.where(predicates.toArray( new Predicate[]{} ));
+
+        //쿼리를 select문 추가
+        criteriaQuery.select(root);
+
+        //최종쿼리
+        TypedQuery<ProductList> typedQuery = entityManager.createQuery(criteriaQuery);
+
+        //쿼리 실행후 결과
+        List<ProductList> lists = typedQuery.getResultList();
+        return  lists;
     }
 }

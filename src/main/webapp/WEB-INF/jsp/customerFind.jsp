@@ -39,13 +39,13 @@
     <br>
     <form action="/customer/findNameLike" method="post">
 
-        KEYWORD <input type="text" name="keyword" value="">
+        KEYWORD <input type="text" name="keyword" >
         <br>
-        name <input type="text" name="name" value="">
+        name <input type="text" name="name" >
         <br>
-        phone <input type="text" name="phone" value="">
+        phone <input type="text" name="phone" >
         <br>
-        ID <input type="text" name="id" value="">
+        ID <input type="text" name="id" >
 
     </form>
 

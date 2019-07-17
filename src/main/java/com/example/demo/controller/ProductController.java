@@ -1,8 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.ProductListRepository;
-import com.example.demo.vo.OrderPrice;
 import com.example.demo.vo.ProductList;
+import com.example.demo.vo.QProductList;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +35,9 @@ public class ProductController {
     ProductListRepository productListRepository;
 
     @Autowired
-    protected EntityManager entityManager;
+    JPAQueryFactory queryFactory;
+
+    EntityManager entityManager;
 
     @PostMapping(value = "/findAll")
     public List<ProductList> findAll(){
@@ -99,4 +105,27 @@ public class ProductController {
         List<ProductList> lists = typedQuery.getResultList();
         return  lists;
     }
+
+    //Querydsl 예제
+    //Q엔티티를 만들기위해 플러그인과 라이브러리를 삽입
+    //queryFactory를 만들기 위해 부트어플리케이션에서 아래 문구 추가
+    /*
+    @PersistenceContext
+	EntityManager entityManager;
+
+	@Bean
+	public JPAQueryFactory queryFactory(){
+		return new JPAQueryFactory(entityManager);
+	}
+	*/
+    @PostMapping("/Querydsl")
+    public List<ProductList> Querydsl(){
+        QProductList productList = QProductList.productList;
+
+        return queryFactory.selectFrom(productList)
+                            .where(productList.price.gt(1000))
+                            .fetch();
+    }
 }
+
+

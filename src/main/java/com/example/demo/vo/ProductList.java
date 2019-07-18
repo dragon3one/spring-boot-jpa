@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 public class ProductList {
 
-	@Id
+    @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

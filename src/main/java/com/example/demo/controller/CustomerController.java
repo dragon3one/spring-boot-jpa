@@ -50,23 +50,25 @@ public class CustomerController {
         return customerRepository.findAll();
     }
 
-    @PostMapping("/findById")
+    //메서드이름으로 쿼리생성
+    @PostMapping(value = "/findById")
     public Optional<Customer> findById(@RequestParam Map<String,String> param){
         Optional<Customer> result = customerRepository.findById(Long.parseLong(param.get("id")));
         return result;
     }
-
     @PostMapping("/findNameLike")
     public List<Customer> findNameLike(@RequestParam Map<String,String> param){
         String keyword = param.get("keyword");
         return customerRepository.findByNameLike('%'+keyword+'%');
     }
 
+    //Named 쿼리
+    //@NamedQuery Entity에 기술되어 있음
     @PostMapping("/Named")
     public List<Customer> Named(@RequestParam Map<String,String> param){
         return customerRepository.NamedQuery(param.get("keyword"));
     }
-
+    //@Query Repository에 기술되어 있음
     @PostMapping("/query")
     public List<Customer> query(@RequestParam Map<String,String> param){
         return customerRepository.query(param.get("name"), param.get("phone"));

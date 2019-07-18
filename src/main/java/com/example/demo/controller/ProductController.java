@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.service.ProductListRepository;
 import com.example.demo.vo.ProductList;
 import com.example.demo.vo.QProductList;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -126,6 +127,31 @@ public class ProductController {
                             .where(productList.price.gt(1000))
                             .fetch();
     }
+    //@RequestBody JSON/xml 형식으로 받기
+    //querydsl 동적쿼리
+    @PostMapping("/dynamicQuery")
+    public List<ProductList> dynamicQuery(@RequestBody ProductList params){
+        QProductList productList = QProductList.productList;
+
+        BooleanBuilder builder = new BooleanBuilder();
+        if(params.getName()!=null && params.getPrice()!=0){
+            builder.and(productList.name.eq(params.getName()));
+            builder.and(productList.price.eq(params.getPrice()));
+        }
+
+        return queryFactory.selectFrom(productList)
+                            .where(builder)
+                            .fetch();
+    }
+
+    //@RequestBody JSON/xml 형식으로 받기
+    @PostMapping("/insertProduct")
+    public List<ProductList> insertProduct(@RequestBody List<ProductList> params){
+        productListRepository.saveAll(params);
+        return productListRepository.findAll();
+    }
+
+
 }
 
 

@@ -19,6 +19,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,6 +149,21 @@ public class ProductController {
     @PostMapping("/insertProduct")
     public List<ProductList> insertProduct(@RequestBody List<ProductList> params){
         productListRepository.saveAll(params);
+        return productListRepository.findAll();
+    }
+
+    //@RequestBody JSON/xml 형식으로 받기
+    //@Transactional 선언적 트렌젝션 메소
+    @Transactional
+    @PostMapping("/updateProduct")
+    public List<ProductList> updateProduct(@RequestBody ProductList param){
+        QProductList productList = QProductList.productList;
+
+        queryFactory.update(productList)
+                    .where(productList.id.eq(param.getId()) )
+                    .set(productList.price,param.getPrice())
+                    .execute();
+
         return productListRepository.findAll();
     }
 

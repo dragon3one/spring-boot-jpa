@@ -2,13 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.service.CustomerRepository;
 import com.example.demo.vo.Customer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +18,7 @@ import java.util.Optional;
 * @RestController view Resolver를 거치지 않고 리턴한다.
 * @EnableAutoConfiguration 자동설정 exclude와 excludeName속성을 통해 자동설정에서 제외 할수 있다.
 * */
-
+@Slf4j//로그
 @RestController
 @EnableAutoConfiguration
 @RequestMapping(value = "/customer")
@@ -73,4 +73,28 @@ public class CustomerController {
     public List<Customer> query(@RequestParam Map<String,String> param){
         return customerRepository.query(param.get("name"), param.get("phone"));
     }
+
+    //@ExceptionHandler
+    //발생한 Exception을 기반으로 오류를 처리
+    //예시는 이 컨트롤러에서 not found 에러가 발생 했을때 처리 되도록 한다.
+    /*@ExceptionHandler(Exception.class)
+    public Map<String, String> handle(Exception e) {
+        log.error(e.getMessage(), e);
+        Map<String, String> errorAttributes = new HashMap<>();
+        errorAttributes.put("code", "BOARD_NOT_FOUND");
+        errorAttributes.put("message", e.getMessage());
+        return errorAttributes;
+    }*/
+
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleError(HttpServletRequest req, Exception exception) {
+        log.error("Request: " + req.getRequestURL() + " raised " + exception);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", exception);
+        mav.addObject("url", req.getRequestURL());
+        mav.setViewName("error");
+        return mav;
+    }
+
+
 }
